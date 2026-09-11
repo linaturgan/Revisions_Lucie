@@ -1,0 +1,19 @@
+{
+  "name": "Le coin révisions de Lucie",
+  "short_name": "Révisions Lucie",
+  "lang": "fr",
+  "id": "./",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8fbff",
+  "theme_color": "#16838c",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "1254x1254",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

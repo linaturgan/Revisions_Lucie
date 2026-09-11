@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+ match /databases/{database}/documents {
+  match /users/{uid}/events/{eventId} {
+   function owner() { return request.auth != null && request.auth.uid == uid; }
+   function valid() {
+    let d = request.resource.data;
+    return d.keys().hasAll(['id','type','at','updated'])
+      && d.id == eventId && d.at is number && d.updated is number
+      && ((d.type == 'answer'
+        && d.keys().hasOnly(['id','type','at','updated','session','chapter','card','good'])
+        && d.session is string && d.chapter in ['E1','L1'] && d.card is string && d.card.size() < 100 && d.good is bool)
+      || (d.type == 'reset'
+        && d.keys().hasOnly(['id','type','at','updated','card'])
+        && d.card is string && d.card.size() < 100)
+      || (d.type == 'session'
+        && d.keys().hasOnly(['id','type','at','updated','chapter','seconds'])
+        && d.chapter in ['E1','L1'] && d.seconds is number && d.seconds >= 0)
+      || (d.type == 'profile'
+        && d.keys().hasOnly(['id','type','at','updated','name','avatar'])
+        && d.name is string && d.name.size() > 0 && d.name.size() <= 30
+        && d.avatar is string && d.avatar.size() <= 160000
+        && (d.avatar == '' || d.avatar.matches('data:image/jpeg;base64,.*'))));
+   }
+   allow read: if owner();
+   allow create: if owner() && valid();
+   allow update: if owner() && valid() && (request.resource.data == resource.data
+    || (resource.data.type == 'session' && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['seconds','updated'])));
+   allow delete: if false;
+  }
+ }
+}
