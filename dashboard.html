@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Suivi de Lucie</title>
+  <link rel="icon" type="image/png" href="logo2.png">
+  <link rel="apple-touch-icon" href="logo2.png">
+  <meta name="apple-mobile-web-app-title" content="Suivi Lucie">
+  <meta name="theme-color" content="#16838c">
+  <link rel="manifest" href="dashboard.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>📊 Suivi de Lucie</h1>
+      <p>Résultats, séances et notions à retravailler.</p>
+    </header>
+
+    <section id="login" class="card">
+      <h2>🔐 Accès parent</h2>
+      <button class="btn primary" id="loginBtn">
+        Se connecter avec Google
+      </button>
+      <p id="loginStatus" class="status"></p>
+    </section>
+
+    <main id="dashboard" class="hidden">
+      <div class="actions">
+        <a class="btn" href="index.html">🏠 Site</a>
+        <button class="btn" id="logoutBtn">Déconnexion</button>
+      </div>
+
+      <p id="status" class="status"></p>
+
+      <div class="space-stats">
+        <div class="space-stat"><strong id="sessions">0</strong><span>SÉANCES</span></div>
+        <div class="space-stat"><strong id="time">0 min</strong><span>TEMPS ACTIF</span></div>
+        <div class="space-stat"><strong id="good">0</strong><span>BON</span></div>
+        <div class="space-stat"><strong id="bad">0</strong><span>FAUX</span></div>
+      </div>
+
+      <section class="space-card">
+        <h2>📚 Résultats par chapitre</h2>
+        <div id="chapters"></div>
+      </section>
+
+      <section class="space-card">
+        <h2>🕒 Dernières activités</h2>
+        <div id="recent"></div>
+      </section>
+    </main>
+  </div>
+
+<script type="module">
+import { firebaseConfig } from "./firebase-config.js";
+
+const $ = id => document.getElementById(id);
+let auth, db, api;
+
+function render(events) {
+  const answers = events.filter(e => e.type === "answer");
+  const sessions = events.filter(e => e.type === "session");
+  const good = answers.filter(e => e.good).length;
+
+  $("sessions").textContent = sessions.length;
+  $("time").textContent =
+    Math.round(sessions.reduce((n, e) => n + (Number(e.seconds) || 0), 0) / 60) + " min";
+  $("good").textContent = good;
+  $("bad").textContent = answers.length - good;
+
+  $("chapters").innerHTML = ["E1", "L1"].map(ch => {
+    const list = answers.filter(e => e.chapter === ch);
+    return `
+      <div class="space-row">
+        <b>${ch}</b>
+        <span>${list.filter(e => e.good).length} bon · ${list.filter(e => !e.good).length} faux</span>
+      </div>`;
+  }).join("");
+
+  $("recent").innerHTML = answers.slice(-10).reverse().map(e => `
+    <div class="space-row">
+      <div>
+        <b>${e.card}</b>
+        <div class="space-mini">${e.chapter} · ${new Date(e.at).toLocaleString("fr-FR")}</div>
+      </div>
+      <b>${e.good ? "Bon" : "Faux"}</b>
+    </div>
+  `).join("") || "<p>Aucune activité.</p>";
+}
+
+async function start() {
+  const [app, authApi, firestore] = await Promise.all([
+    import("https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js"),
+    import("https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"),
+    import("https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js")
+  ]);
+
+  const firebaseApp = app.initializeApp(firebaseConfig, "dashboard");
+  auth = authApi.getAuth(firebaseApp);
+  db = firestore.getFirestore(firebaseApp);
+  api = { authApi, firestore };
+
+  await authApi.setPersistence(auth, authApi.browserLocalPersistence);
+
+  authApi.onAuthStateChanged(auth, user => {
+    if (!user) {
+      $("login").classList.remove("hidden");
+      $("dashboard").classList.add("hidden");
+      return;
+    }
+
+    $("login").classList.add("hidden");
+    $("dashboard").classList.remove("hidden");
+    $("status").textContent = "Connecté avec " + user.email;
+
+    const query = firestore.query(firestore.collectionGroup(db, "events"));
+
+    firestore.onSnapshot(query, snapshot => {
+      const events = snapshot.docs
+        .map(doc => doc.data())
+        .sort((a, b) => a.at - b.at);
+      render(events);
+    }, error => {
+      $("status").textContent = "Lecture refusée : " + error.message;
+    });
+  });
+
+  $("loginBtn").onclick = () =>
+    authApi.signInWithPopup(auth, new authApi.GoogleAuthProvider())
+      .catch(error => $("loginStatus").textContent = error.message);
+
+  $("logoutBtn").onclick = () => authApi.signOut(auth);
+}
+
+start().catch(error => $("loginStatus").textContent = error.message);
+</script>
+</body>
+</html>
