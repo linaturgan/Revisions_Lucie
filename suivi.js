@@ -38,7 +38,7 @@ async function flush(){
    for(const id of ids)if(data.events[id]?.updated===sent[id])delete data.pending[id];
    persist();
   }
-  status='Résultats synchronisés avec ton espace Firebase.';
+  status="Vas-y Dany est là pour t'aider et te soutenir!!!";
  }catch(err){console.warn('Synchronisation',err.code);status='Résultats conservés sur cet appareil. Synchronisation en attente : vérifie la connexion et la configuration Firebase.';}
  finally{flushing=false;notify();}
 }

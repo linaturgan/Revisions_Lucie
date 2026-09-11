@@ -34,7 +34,7 @@ Dans `firebase-config.js`, remplacer `null` par l’objet Firebase, en conservan
 
 Dans Authentication → Paramètres → Domaines autorisés, ajouter le domaine GitHub Pages (par exemple `ton-compte.github.io`, sans chemin). Ajouter `localhost` pour les essais locaux si nécessaire.
 
-Les résultats locaux existants sont envoyés au projet de Lucie dès la première connexion réussie. Le message du site doit indiquer « Résultats synchronisés ». En cas d’échec, ils restent en attente sur cet appareil.
+Les résultats locaux existants sont envoyés au projet de Lucie dès la première connexion réussie. Après une synchronisation réussie, le site affiche le message motivant « Vas-y Dany est là pour t'aider et te soutenir!!! ». En cas d’échec, les résultats restent en attente sur cet appareil.
 
 ## 5. Créer le dépôt et publier sur GitHub Pages
 

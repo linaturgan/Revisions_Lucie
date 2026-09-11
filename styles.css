@@ -255,3 +255,390 @@ button,input,select{font:inherit}button,a,input{touch-action:manipulation}button
 #avatarFile{width:100%;max-width:100%;font-size:.875rem}.diagram-wrap{overflow-x:auto}.diagram-wrap svg{min-width:520px}.answer{overflow-wrap:anywhere}.profile-avatar-wrap h3{overflow-wrap:anywhere;min-width:0}.space-dialog .space-panel{box-shadow:none}@media(max-width:450px){.space-dialog .btn{padding:10px 12px}.error-row{align-items:flex-start}.error-row a{overflow-wrap:anywhere}.hero h1{font-size:1.9rem}}
 
 h1,h2,h3,.activity{overflow-wrap:anywhere}
+
+/* =========================================================
+   THÈME ARCADE POP — joyeux, coloré et légèrement gaming
+   ========================================================= */
+:root{
+  --ink:#261b46;
+  --muted:#6c6288;
+  --line:#ddd4fa;
+  --white:#ffffff;
+  --shadow:0 14px 34px rgba(78,49,143,.14);
+  --game-purple:#7c4dff;
+  --game-pink:#ff5da8;
+  --game-cyan:#20c8d8;
+  --game-yellow:#ffd166;
+  --game-green:#57cf9a;
+  --game-deep:#4c2aa8;
+}
+
+body{
+  font-family:ui-rounded,"Arial Rounded MT Bold","Trebuchet MS",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    linear-gradient(rgba(124,77,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(124,77,255,.035) 1px,transparent 1px),
+    radial-gradient(circle at 8% 8%,rgba(255,209,102,.52) 0 7%,transparent 23%),
+    radial-gradient(circle at 92% 12%,rgba(32,200,216,.28) 0 8%,transparent 25%),
+    radial-gradient(circle at 82% 86%,rgba(255,93,168,.20) 0 8%,transparent 24%),
+    linear-gradient(135deg,#fffaff 0%,#f5f1ff 48%,#effcff 100%);
+  background-size:32px 32px,32px 32px,auto,auto,auto,auto;
+  min-height:100vh;
+}
+
+h1,h2,h3,.activity,.btn,.space-btn{
+  font-family:ui-rounded,"Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;
+}
+
+.wrap{max-width:1120px}
+
+.hero{
+  background:linear-gradient(135deg,rgba(255,255,255,.97),rgba(249,245,255,.95));
+  border:2px solid rgba(124,77,255,.24);
+  box-shadow:
+    0 8px 0 rgba(124,77,255,.10),
+    0 20px 44px rgba(78,49,143,.13);
+}
+
+.hero:after{
+  content:"🎮  ✦  ⚡  🧪  ✧  ⭐  👾";
+  right:-12px;
+  bottom:-5px;
+  font-size:38px;
+  opacity:.12;
+  transform:rotate(-4deg);
+}
+
+.hero h1{
+  color:#4d2bb1;
+  text-shadow:0 2px 0 #fff,0 5px 16px rgba(124,77,255,.16);
+}
+
+.hero p{
+  color:#67577f;
+  font-weight:800;
+}
+
+.subject{
+  --accent:#20c8d8;
+  --accent2:#7c4dff;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(248,246,255,.96));
+  border:2px solid rgba(124,77,255,.18);
+  box-shadow:0 8px 0 rgba(76,42,168,.08),0 18px 34px rgba(78,49,143,.10);
+}
+
+.subject:before{
+  content:"";
+  position:absolute;
+  left:0;right:0;top:0;
+  height:6px;
+  background:linear-gradient(90deg,var(--game-pink),var(--game-yellow),var(--game-cyan),var(--game-purple));
+}
+
+.pc{--accent:#12b8c7;--accent2:#7851e8}
+
+.icon{
+  background:linear-gradient(145deg,#e9fbff,#eee7ff);
+  border:2px solid rgba(32,200,216,.25);
+  box-shadow:0 5px 0 rgba(32,200,216,.10),0 9px 20px rgba(76,42,168,.10);
+  animation:gameFloat 3.2s ease-in-out infinite;
+}
+
+@keyframes gameFloat{
+  0%,100%{transform:translateY(0) rotate(-1deg)}
+  50%{transform:translateY(-3px) rotate(1deg)}
+}
+
+.count{
+  color:#786a97;
+  letter-spacing:.02em;
+}
+
+.activity{
+  background:linear-gradient(135deg,#fff,#f8f4ff 60%,#effcff);
+  border:2px solid rgba(124,77,255,.16);
+  box-shadow:0 4px 0 rgba(76,42,168,.09);
+  transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;
+}
+
+.activity:hover{
+  transform:translateY(-3px) translateX(2px);
+  border-color:rgba(124,77,255,.38);
+  box-shadow:0 7px 0 rgba(76,42,168,.10),0 13px 25px rgba(78,49,143,.10);
+}
+
+.activity:active{transform:translateY(1px)}
+
+.activity .go{
+  border-radius:12px;
+  color:white;
+  background:linear-gradient(135deg,var(--game-cyan),var(--game-purple));
+  box-shadow:0 4px 10px rgba(124,77,255,.22);
+}
+
+.space-btn,.btn{
+  border:2px solid rgba(124,77,255,.18);
+  background:linear-gradient(135deg,#fff,#f3efff);
+  color:#4d2bb1;
+  box-shadow:0 4px 0 rgba(76,42,168,.10),0 8px 18px rgba(78,49,143,.10);
+  transition:transform .14s ease,box-shadow .14s ease,filter .14s ease;
+}
+
+.space-btn:hover,.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 0 rgba(76,42,168,.10),0 12px 24px rgba(78,49,143,.12);
+  filter:saturate(1.08);
+}
+
+.space-btn:active,.btn:active{transform:translateY(1px)}
+
+.primary{
+  background:linear-gradient(135deg,var(--game-purple),#9d67ff);
+  color:white;
+  border-color:transparent;
+}
+
+.good{
+  background:linear-gradient(135deg,#23b978,var(--game-green));
+  color:white;
+  border-color:transparent;
+}
+
+.bad{
+  background:linear-gradient(135deg,#e24f73,var(--game-pink));
+  color:white;
+  border-color:transparent;
+}
+
+.card,.space-card,.space-stat{
+  background:rgba(255,255,255,.96);
+  border:2px solid rgba(124,77,255,.14);
+  box-shadow:0 6px 0 rgba(76,42,168,.06),0 14px 28px rgba(78,49,143,.08);
+}
+
+.card{
+  position:relative;
+  overflow:hidden;
+}
+
+.card:before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:5px;
+  background:linear-gradient(90deg,var(--game-cyan),var(--game-purple),var(--game-pink));
+}
+
+.space-panel,.space-dialog{
+  background:
+    radial-gradient(circle at 100% 0,rgba(32,200,216,.14),transparent 32%),
+    linear-gradient(160deg,#fbf9ff,#f4f1ff 55%,#f2fdff);
+}
+
+.space-head h2{color:#4d2bb1}
+.space-close{
+  background:linear-gradient(135deg,#eee8ff,#e7fbff);
+  color:#5b38bc;
+  border:2px solid rgba(124,77,255,.14);
+}
+
+.space-stats .space-stat:nth-child(1){background:linear-gradient(145deg,#fff,#eefcf7)}
+.space-stats .space-stat:nth-child(2){background:linear-gradient(145deg,#fff,#fff0f5)}
+.space-stats .space-stat:nth-child(3){background:linear-gradient(145deg,#fff,#f1edff)}
+.space-stats .space-stat:nth-child(4){background:linear-gradient(145deg,#fff,#eefbff)}
+
+.space-stat strong{color:#4d2bb1}
+.space-stat span{color:#75668f;letter-spacing:.04em}
+
+.space-row{border-bottom:1px dashed #ddd4f7}
+.space-tag{
+  background:linear-gradient(135deg,#fff0f6,#f3edff);
+  color:#9b3768;
+  border:1px solid #f0d3e2;
+}
+
+.profile-avatar,.profile-avatar-placeholder{
+  border:3px solid white;
+  outline:3px solid rgba(124,77,255,.20);
+  box-shadow:0 6px 0 rgba(76,42,168,.08),0 10px 22px rgba(78,49,143,.13);
+}
+
+.profile-avatar-placeholder{
+  background:linear-gradient(135deg,#dffbff,#f2e9ff 50%,#ffe8f3);
+  color:#5b38bc;
+}
+
+.avatar-actions button,.avatar-label,.space-action{
+  background:linear-gradient(135deg,#eef9ff,#f1edff);
+  color:#5a38b9;
+  border:1px solid rgba(124,77,255,.14);
+}
+
+.avatar-actions .remove{background:#fff0f3;color:#a92f57}
+
+.answer{
+  background:linear-gradient(135deg,#effcff,#f5f0ff 70%,#fff5fa);
+  border:2px solid rgba(32,200,216,.24);
+  border-left:6px solid var(--game-cyan);
+  box-shadow:0 5px 0 rgba(32,200,216,.08);
+}
+
+.pill{
+  background:linear-gradient(135deg,#eafcff,#f0ebff);
+  color:#5738ad;
+  border:1px solid rgba(124,77,255,.14);
+  font-weight:850;
+}
+
+progress{
+  appearance:none;
+  -webkit-appearance:none;
+  height:15px;
+  border:0;
+  border-radius:999px;
+  overflow:hidden;
+  background:#e7e0f7;
+  box-shadow:inset 0 2px 5px rgba(76,42,168,.10);
+}
+
+progress::-webkit-progress-bar{background:#e7e0f7;border-radius:999px}
+progress::-webkit-progress-value{
+  background:linear-gradient(90deg,var(--game-cyan),var(--game-purple),var(--game-pink));
+  border-radius:999px;
+}
+progress::-moz-progress-bar{
+  background:linear-gradient(90deg,var(--game-cyan),var(--game-purple),var(--game-pink));
+  border-radius:999px;
+}
+
+.status{
+  color:#5d418d;
+  font-weight:850;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(124,77,255,.16);
+  border-radius:14px;
+  padding:9px 12px;
+  box-shadow:0 5px 15px rgba(78,49,143,.06);
+}
+.status:empty{display:none}
+#syncStatus{text-align:center;margin:16px auto 0;max-width:760px}
+
+.notice,.noscript{
+  background:linear-gradient(135deg,#fff7d9,#fff1fa);
+  border:1px solid rgba(255,209,102,.55);
+}
+
+input:focus{
+  outline:none;
+  border-color:var(--game-purple)!important;
+  box-shadow:0 0 0 4px rgba(124,77,255,.12);
+}
+
+:focus-visible{
+  outline:3px solid var(--game-pink);
+  outline-offset:4px;
+}
+
+@media(max-width:620px){
+  .hero:after{font-size:30px;opacity:.09}
+  .hero{box-shadow:0 6px 0 rgba(124,77,255,.08),0 14px 28px rgba(78,49,143,.11)}
+  .activity{padding:17px}
+}
+
+/* =========================================================
+   FOND PERSONNAGE — présent sur toutes les pages
+   Le fichier doit être placé dans : images/ellie-bg.png
+   ========================================================= */
+body{
+  position:relative;
+  isolation:isolate;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:url("images/ellie-bg.png");
+  background-repeat:no-repeat;
+  background-position:right 2% top 26px;
+  background-size:34%;
+  opacity:.16;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* Le contenu reste toujours au-dessus de l'image de fond,
+   et on descend un peu les blocs pour laisser voir le visage. */
+.wrap,
+.study{
+  position:relative;
+  z-index:1;
+}
+
+.wrap{
+  padding-top:120px;
+}
+
+.hero{
+  min-height:190px;
+  background:rgba(255,255,255,.74);
+  backdrop-filter:blur(7px);
+}
+
+.subject,
+.card,
+.space-card,
+.space-stat,
+.status,
+.notice,
+.noscript{
+  background:rgba(255,255,255,.84);
+  backdrop-filter:blur(6px);
+}
+
+.answer{
+  background:rgba(245,252,255,.84);
+}
+
+@media(max-width:900px){
+  body::before{
+    background-position:right -30px top 22px;
+    background-size:44%;
+    opacity:.17;
+  }
+
+  .wrap{
+    padding-top:140px;
+  }
+}
+
+@media(max-width:620px){
+  body::before{
+    background-position:center top 20px;
+    background-size:82%;
+    opacity:.20;
+  }
+
+  .wrap{
+    padding-top:210px;
+  }
+
+  .hero{
+    min-height:0;
+    background:rgba(255,255,255,.70);
+  }
+
+  .subject,
+  .card,
+  .space-card,
+  .space-stat,
+  .status,
+  .notice,
+  .noscript{
+    background:rgba(255,255,255,.80);
+  }
+}
+
