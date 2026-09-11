@@ -642,3 +642,37 @@ body::before{
   }
 }
 
+
+/* =========================================================
+   MESSAGE DE MOTIVATION — pages d'exercices E1 / L1
+   Injecté via le conteneur .study pour éviter de modifier
+   chaque fichier HTML séparément.
+   ========================================================= */
+.study::after{
+  content:"Vas-y!! Dany est là pour t'aider et te soutenir!!!";
+  display:block;
+  width:fit-content;
+  max-width:calc(100% - 24px);
+  margin:28px auto 18px;
+  padding:12px 18px;
+  text-align:center;
+  font-weight:950;
+  line-height:1.4;
+  color:#5930b3;
+  background:rgba(255,255,255,.78);
+  border:2px solid rgba(124,77,255,.18);
+  border-radius:999px;
+  box-shadow:0 6px 0 rgba(76,42,168,.06),0 12px 24px rgba(78,49,143,.08);
+  backdrop-filter:blur(6px);
+}
+
+@media(max-width:620px){
+  .study::after{
+    width:100%;
+    max-width:100%;
+    margin:24px auto 14px;
+    padding:12px 14px;
+    border-radius:18px;
+    font-size:.95rem;
+  }
+}
